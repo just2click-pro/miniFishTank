@@ -26,6 +26,16 @@ ul {
 	list-style: none;
 }
 
+.header h1 {
+  font-family: fantasy;
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0 15% 0;
+  height: 50px;
+  line-height: 50px;
+  text-shadow: rgba(0,0,0,0.11) 1px 3px;
+}
+
 .main {
 	bottom: 101px;
   margin: 0 auto; /*Allow for footer height*/
@@ -116,10 +126,37 @@ ul {
   width: 100%;
 }
 
-.water .fish {
+.water .fish-area {
+	position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+}
+
+.fish-area .fish {
 	position: absolute;
   -webkit-transition: all 1.0s linear; /* Safari */
   transition: all 1.0s linear;
+}
+
+.work-area .instructions {
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.11);
+	margin: 5px;
+}
+
+.instructions ul li {
+	font-family: system-ui;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.instructions ul li img {
+	margin: 5px;
+	vertical-align: middle;
+	width: 30px;
 }
 
 .main .push {

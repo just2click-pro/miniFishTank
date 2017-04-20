@@ -2,29 +2,31 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function randomXY ($container) {
-	let left = $container.offsetLeft;
-	let top = $container.offsetTop;
-	let width = left + $container.offsetWidth;
-	let height = top + $container.offsetHeight;
+function randomXY ($container, $fish) {
+	let fishHeight = $fish.offsetHeight;
+	let fishWidth = $fish.offsetWidth;
 
-	let x = random(left + 50, left + width - 100);
-	let y = random(top + 20, top + height - 50);
+	let height = $container.offsetHeight;
+	let width = $container.offsetWidth;
+
+	let x = random(fishWidth * 1.1, width - 1.1 * fishWidth);
+	let y = random(fishHeight * 1.1, height - 1.1 * fishHeight);
 
 	return ({ x, y });
 }
 
 class Fish {
 	constructor ($container, imgUrl) {
-		this.randomPosition = randomXY($container);
 		this.image = document.createElement('img');
 		this.fishHeight = random(20, 40);
 
 		this.image.src = imgUrl;
 		this.image.setAttribute('class', 'fish');
-		this.repositionFish();
-
+		this.image.setAttribute('style', 'height: ' + this.fishHeight + 'px;');
 		$container.appendChild(this.image);
+
+		this.randomPosition = randomXY($container, this.image);
+		this.repositionFish();
 	}
 
 	feed (amount) {
@@ -33,7 +35,7 @@ class Fish {
 	}
 
 	swim (x, y) {
-		this.randomPosition = randomXY($container);
+		this.randomPosition = randomXY($container, this.image);
 		this.repositionFish();
 	}
 
@@ -44,7 +46,7 @@ class Fish {
 	}
 }
 
-let $container = document.querySelector('.water');
+let $container = document.querySelector('.fish-area');
 let $addButton = document.querySelector('#addFish');
 let $feedButton = document.querySelector('#feedFish');
 let $swimButton = document.querySelector('#swimFish');
