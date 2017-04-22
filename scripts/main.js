@@ -1,16 +1,18 @@
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+var MiniFishTank = {};
 
-function randomXY ($container, $fish) {
+MiniFishTank.random = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+MiniFishTank.randomXY = function ($container, $fish) {
 	let fishHeight = $fish.offsetHeight;
 	let fishWidth = $fish.offsetWidth;
 
 	let height = $container.offsetHeight;
 	let width = $container.offsetWidth;
 
-	let x = random(fishWidth * 1.1, width - 1.1 * fishWidth);
-	let y = random(fishHeight * 1.1, height - 1.1 * fishHeight);
+	let x = MiniFishTank.random(fishWidth * 1.1, width - 1.1 * fishWidth);
+	let y = MiniFishTank.random(fishHeight * 1.1, height - 1.1 * fishHeight);
 
 	return ({ x, y });
 }
@@ -18,14 +20,14 @@ function randomXY ($container, $fish) {
 class Fish {
 	constructor ($container, imgUrl) {
 		this.image = document.createElement('img');
-		this.fishHeight = random(20, 40);
+		this.fishHeight = MiniFishTank.random(20, 40);
 
 		this.image.src = imgUrl;
 		this.image.setAttribute('class', 'fish');
 		this.image.setAttribute('style', 'height: ' + this.fishHeight + 'px;');
 		$container.appendChild(this.image);
 
-		this.randomPosition = randomXY($container, this.image);
+		this.randomPosition = MiniFishTank.randomXY(MiniFishTank.$container, this.image);
 		this.repositionFish();
 	}
 
@@ -35,7 +37,7 @@ class Fish {
 	}
 
 	swim (x, y) {
-		this.randomPosition = randomXY($container, this.image);
+		this.randomPosition = MiniFishTank.randomXY(MiniFishTank.$container, this.image);
 		this.repositionFish();
 	}
 
@@ -46,26 +48,26 @@ class Fish {
 	}
 }
 
-let $container = document.querySelector('.fish-area');
-let $addButton = document.querySelector('#addFish');
-let $feedButton = document.querySelector('#feedFish');
-let $swimButton = document.querySelector('#swimFish');
-let allFish = [];
+MiniFishTank.$container = document.querySelector('.fish-area');
+MiniFishTank.$addButton = document.querySelector('#addFish');
+MiniFishTank.$feedButton = document.querySelector('#feedFish');
+MiniFishTank.$swimButton = document.querySelector('#swimFish');
+MiniFishTank.allFish = [];
 
-$addButton.addEventListener('click', () => {
-	let fish = new Fish($container, 'resources/images/orange-fish.png');
+MiniFishTank.$addButton.addEventListener('click', () => {
+	let fish = new Fish(MiniFishTank.$container, 'resources/images/orange-fish.png');
 
-	allFish.push(fish);
+	MiniFishTank.allFish.push(fish);
 });
 
-$feedButton.addEventListener('click', () => {
-		for (var fish of allFish) {
-			fish.feed(random(10, 50));
+MiniFishTank.$feedButton.addEventListener('click', () => {
+		for (var fish of MiniFishTank.allFish) {
+			fish.feed(MiniFishTank.random(10, 50));
 		}
 });
 
-$swimButton.addEventListener('click', () => {
-		for (var fish of allFish) {
+MiniFishTank.$swimButton.addEventListener('click', () => {
+		for (var fish of MiniFishTank.allFish) {
 			fish.swim();
 		}
 });
